@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.alexpaxom.workrhythm.R;
+import com.alexpaxom.workrhythm.model.Task;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -17,7 +18,7 @@ import com.alexpaxom.workrhythm.R;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_tasks, R.string.tab_in_work, R.string.tab_finished};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
@@ -28,8 +29,19 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1);
+        // Return a PageFragment (defined as a static inner class below).
+
+        if(position == 0) {
+            return new PageFragment(R.layout.tab_task_list_in_queue, Task.IN_QUEUE);
+        }
+        else if(position == 1) {
+            return new PageFragment(R.layout.tab_task_list, Task.IN_WORK);
+        }
+        else if(position == 2) {
+            return new PageFragment(R.layout.tab_task_list, Task.FINISHED);
+        }
+        else
+            return new PageFragment();
     }
 
     @Nullable
@@ -40,7 +52,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
-        return 2;
+        // Show 3 total pages.
+        return 3;
     }
 }
