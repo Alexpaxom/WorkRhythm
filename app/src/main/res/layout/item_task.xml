@@ -7,6 +7,12 @@
     android:layout_height="wrap_content"
     android:onClick="onClickTaskItem">
 
+    <TextView
+        android:id="@+id/id_task_in_db"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
     <ImageButton
         android:id="@+id/button_prev_status"
         android:layout_width="wrap_content"
@@ -24,18 +30,23 @@
         android:layout_height="wrap_content"
         android:text="test"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_next_status"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/button_prev_status"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/id_task_in_db"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/item_additional_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_next_status"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/button_prev_status"
+        app:layout_constraintTop_toBottomOf="@+id/item_title"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/button_next_status"
@@ -48,4 +59,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@android:drawable/ic_media_next" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

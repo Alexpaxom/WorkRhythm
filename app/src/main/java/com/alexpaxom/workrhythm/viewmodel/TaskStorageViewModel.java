@@ -1,6 +1,5 @@
 package com.alexpaxom.workrhythm.viewmodel;
 
-import android.util.Log;
 
 import androidx.core.util.Consumer;
 import androidx.lifecycle.LiveData;
@@ -9,9 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.alexpaxom.workrhythm.App;
 import com.alexpaxom.workrhythm.data.AppSQLiteDatabase;
 import com.alexpaxom.workrhythm.model.Task;
-import com.alexpaxom.workrhythm.model.TaskDao;
 
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -81,10 +78,10 @@ public class TaskStorageViewModel extends ViewModel {
         Long curTime = new GregorianCalendar().getTimeInMillis();
 
         if(task.getStatus_id() == Task.IN_WORK) {
-            task.setElapsed_time(task.getElapsed_time() + curTime - task.getLast_update());
+            task.setElapsed_time(task.getElapsed_time() + curTime - task.getLast_update_status());
         }
 
-        task.setLast_update(curTime);
+        task.setLast_update_status(curTime);
         if(new_status instanceof Integer)
             task.setStatus_id(new_status);
 

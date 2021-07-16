@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alexpaxom.workrhythm.R;
 import com.alexpaxom.workrhythm.model.Task;
-import com.alexpaxom.workrhythm.model.TaskDao;
 import com.alexpaxom.workrhythm.viewmodel.TaskStorageViewModel;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public class PageFragment extends Fragment {
     private TaskStorageViewModel viewModel;
     private ListTasksAdapter listTasksAdapter;
     private int layout_view;
-    private int shown_status;
+    private Integer shown_status;
 
     public PageFragment() {
         this(R.layout.tab_task_list_in_queue, Task.IN_QUEUE);
@@ -58,7 +57,7 @@ public class PageFragment extends Fragment {
         RecyclerView rwListTasks;
 
         rwListTasks = (RecyclerView) view.findViewById(R.id.list_tasks);
-        listTasksAdapter = new ListTasksAdapter();
+        listTasksAdapter = new ListTasksAdapter(this, shown_status);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rwListTasks.setLayoutManager(layoutManager);
         rwListTasks.setAdapter(listTasksAdapter);
@@ -78,5 +77,7 @@ public class PageFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if(listTasksAdapter != null)
+            listTasksAdapter.onDestroyAdapter();
     }
 }

@@ -1,7 +1,6 @@
 package com.alexpaxom.workrhythm;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.room.Room;
 

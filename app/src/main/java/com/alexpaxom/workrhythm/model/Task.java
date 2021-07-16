@@ -5,12 +5,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.alexpaxom.workrhythm.R;
-import com.alexpaxom.workrhythm.ui.main.PageFragment;
 
-import org.jetbrains.annotations.NotNull;
 
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 
@@ -31,8 +27,8 @@ public class Task {
     @ColumnInfo(name = "status_id", defaultValue = "1")
     private Integer status_id = 1;
 
-    @ColumnInfo(name = "last_update", defaultValue = "0")
-    private Long last_update;
+    @ColumnInfo(name = "last_update_status", defaultValue = "0")
+    private Long last_update_status;
 
     @ColumnInfo(name = "elapsed_time", defaultValue = "0")
     private Long elapsed_time;
@@ -46,17 +42,17 @@ public class Task {
 
     @Ignore
     public Task() {
-        this(null, "Без заголовка", "", 50, 1, new GregorianCalendar().getTimeInMillis(), (long) 0);
+            this(null, "Без заголовка", "", 50, 1, GregorianCalendar.getInstance().getTimeInMillis(), (long) 0);
     }
 
 
-    public Task(Long id, String title, String description, Integer priority, Integer status_id, Long last_update, Long elapsed_time) {
+    public Task(Long id, String title, String description, Integer priority, Integer status_id, Long last_update_status, Long elapsed_time) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.status_id = status_id;
-        this.last_update = last_update;
+        this.last_update_status = last_update_status;
         this.elapsed_time = elapsed_time;
     }
 
@@ -82,8 +78,8 @@ public class Task {
         this.status_id = status_id;
     }
 
-    public void setLast_update(Long last_update) {
-        this.last_update = last_update;
+    public void setLast_update_status(Long last_update_status) {
+        this.last_update_status = last_update_status;
     }
 
     public void setElapsed_time(Long elapsed_time) {
@@ -127,8 +123,8 @@ public class Task {
         return status_id;
     }
 
-    public Long getLast_update() {
-        return last_update;
+    public Long getLast_update_status() {
+        return last_update_status;
     }
 
     public Long getElapsed_time() {
