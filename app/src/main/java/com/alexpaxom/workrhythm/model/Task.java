@@ -25,13 +25,13 @@ public class Task {
     private Integer priority = 0;
 
     @ColumnInfo(name = "status_id", defaultValue = "1")
-    private Integer status_id = 1;
+    private Integer statusId = 1;
 
     @ColumnInfo(name = "last_update_status", defaultValue = "0")
-    private Long last_update_status;
+    private Long lastUpdateStatus;
 
     @ColumnInfo(name = "elapsed_time", defaultValue = "0")
-    private Long elapsed_time;
+    private Long elapsedTime;
 
     public final static Integer IN_QUEUE = 1;
     public final static Integer IN_WORK = 2;
@@ -42,18 +42,18 @@ public class Task {
 
     @Ignore
     public Task() {
-            this(null, "Без заголовка", "", 50, 1, GregorianCalendar.getInstance().getTimeInMillis(), (long) 0);
+            this(null, "Untitled", "", 50, 1, GregorianCalendar.getInstance().getTimeInMillis(), (long) 0);
     }
 
 
-    public Task(Long id, String title, String description, Integer priority, Integer status_id, Long last_update_status, Long elapsed_time) {
+    public Task(Long id, String title, String description, Integer priority, Integer statusId, Long lastUpdateStatus, Long elapsedTime) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.priority = priority;
-        this.status_id = status_id;
-        this.last_update_status = last_update_status;
-        this.elapsed_time = elapsed_time;
+        this.statusId = statusId;
+        this.lastUpdateStatus = lastUpdateStatus;
+        this.elapsedTime = elapsedTime;
     }
 
 
@@ -74,31 +74,31 @@ public class Task {
         this.priority = priority;
     }
 
-    public void setStatus_id(Integer status_id) {
-        this.status_id = status_id;
+    public void setStatusId(Integer statusId) {
+        this.statusId = statusId;
     }
 
-    public void setLast_update_status(Long last_update_status) {
-        this.last_update_status = last_update_status;
+    public void setLastUpdateStatus(Long lastUpdateStatus) {
+        this.lastUpdateStatus = lastUpdateStatus;
     }
 
-    public void setElapsed_time(Long elapsed_time) {
-        this.elapsed_time = elapsed_time;
+    public void setElapsedTime(Long elapsedTime) {
+        this.elapsedTime = elapsedTime;
     }
 
 
     //getters
 
-    public Integer getNextStatus_id() {
-        if(status_id < Task.FINISHED) {
-            return status_id + 1;
+    public Integer getNextStatusId() {
+        if(statusId < Task.FINISHED) {
+            return statusId + 1;
         }
         return null;
     }
 
-    public Integer getPrevStatus_id() {
-        if(status_id > Task.IN_QUEUE) {
-            return status_id - 1;
+    public Integer getPrevStatusId() {
+        if(statusId > Task.IN_QUEUE) {
+            return statusId - 1;
         }
         return null;
     }
@@ -119,15 +119,15 @@ public class Task {
         return priority;
     }
 
-    public Integer getStatus_id() {
-        return status_id;
+    public Integer getStatusId() {
+        return statusId;
     }
 
-    public Long getLast_update_status() {
-        return last_update_status;
+    public Long getLastUpdateStatus() {
+        return lastUpdateStatus;
     }
 
-    public Long getElapsed_time() {
-        return elapsed_time;
+    public Long getElapsedTime() {
+        return elapsedTime;
     }
 }

@@ -44,7 +44,7 @@ public class TaskStorageViewModel extends ViewModel {
         Executor dbUpdateExecutor = Executors.newSingleThreadExecutor();
         dbUpdateExecutor.execute(() ->{
             Task task = db.taskDao().getById(task_id);
-            setStatus(task, task.getNextStatus_id());
+            setStatus(task, task.getNextStatusId());
         });
     }
 
@@ -52,7 +52,7 @@ public class TaskStorageViewModel extends ViewModel {
         Executor dbUpdateExecutor = Executors.newSingleThreadExecutor();
         dbUpdateExecutor.execute(() ->{
             Task task = db.taskDao().getById(task_id);
-            setStatus(task, task.getPrevStatus_id());
+            setStatus(task, task.getPrevStatusId());
         });
     }
 
@@ -77,13 +77,13 @@ public class TaskStorageViewModel extends ViewModel {
     private void setStatus(Task task, Integer new_status) {
         Long curTime = new GregorianCalendar().getTimeInMillis();
 
-        if(task.getStatus_id() == Task.IN_WORK) {
-            task.setElapsed_time(task.getElapsed_time() + curTime - task.getLast_update_status());
+        if(task.getStatusId() == Task.IN_WORK) {
+            task.setElapsedTime(task.getElapsedTime() + curTime - task.getLastUpdateStatus());
         }
 
-        task.setLast_update_status(curTime);
+        task.setLastUpdateStatus(curTime);
         if(new_status instanceof Integer)
-            task.setStatus_id(new_status);
+            task.setStatusId(new_status);
 
         SaveTask(task);
     }

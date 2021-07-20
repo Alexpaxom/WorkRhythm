@@ -15,8 +15,8 @@ public interface TaskDao {
     @Query("SELECT *  FROM Tasks")
     List<Task> getAll();
 
-    @Query("SELECT *  FROM Tasks WHERE status_id = :status_id")
-    LiveData<List<Task>> getAllByStatus(Integer status_id);
+    @Query("SELECT *  FROM Tasks WHERE status_id = :statusId")
+    LiveData<List<Task>> getAllByStatus(Integer statusId);
 
     @Query("SELECT * FROM Tasks WHERE id = :taskId")
     Task getById(Long taskId);

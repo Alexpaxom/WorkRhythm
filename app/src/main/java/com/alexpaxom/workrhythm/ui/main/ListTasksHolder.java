@@ -42,8 +42,8 @@ class ListTasksHolder extends RecyclerView.ViewHolder {
     }
 
     void bind(int listIndex) {
-        elapsedTime = listTasksAdapter.data.get(listIndex).getElapsed_time();
-        lastUpdateTaskStatus = listTasksAdapter.data.get(listIndex).getLast_update_status();
+        elapsedTime = listTasksAdapter.data.get(listIndex).getElapsedTime();
+        lastUpdateTaskStatus = listTasksAdapter.data.get(listIndex).getLastUpdateStatus();
 
         taskName.setText(listTasksAdapter.data.get(listIndex).getTitle());
         task_db_id.setText(listTasksAdapter.data.get(listIndex).getId().toString());
