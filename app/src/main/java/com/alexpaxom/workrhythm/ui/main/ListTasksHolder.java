@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alexpaxom.workrhythm.R;
+import com.alexpaxom.workrhythm.TimeFormatter;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -28,8 +29,6 @@ class ListTasksHolder extends RecyclerView.ViewHolder {
     private Long elapsedTime;
 
 
-    private static final int convertMillisecondsToDays = 86400000;
-
 
     public ListTasksHolder(ListTasksAdapter listTasksAdapter, @NonNull @NotNull View itemView) {
         super(itemView);
@@ -47,7 +46,7 @@ class ListTasksHolder extends RecyclerView.ViewHolder {
 
         taskName.setText(listTasksAdapter.data.get(listIndex).getTitle());
         task_db_id.setText(listTasksAdapter.data.get(listIndex).getId().toString());
-        task_additional_info.setText(formatElapsedTime(elapsedTime));
+        task_additional_info.setText(TimeFormatter.intervalFromTime(elapsedTime));
 
     }
 
@@ -63,13 +62,6 @@ class ListTasksHolder extends RecyclerView.ViewHolder {
     public void updateElapsedTime(Long cur_time) {
         // Get previous time when task was "in work" and add current time "in work" status
         Long fullElapsedTime = elapsedTime + (cur_time-lastUpdateTaskStatus);
-        task_additional_info.setText(formatElapsedTime(fullElapsedTime));
-    }
-
-    private String formatElapsedTime(Long elapsedTime) {
-        DateFormat df = new SimpleDateFormat(" HH:mm:ss");
-        df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
-        Integer elapsed_days = (int) (elapsedTime / convertMillisecondsToDays);
-        return "Days: "+elapsed_days.toString() + " Hours:" +df.format(elapsedTime%convertMillisecondsToDays);
+        task_additional_info.setText(TimeFormatter.intervalFromTime(fullElapsedTime));
     }
 }
