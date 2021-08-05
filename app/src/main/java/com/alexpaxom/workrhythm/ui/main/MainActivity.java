@@ -3,6 +3,7 @@ package com.alexpaxom.workrhythm.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.alexpaxom.workrhythm.R;

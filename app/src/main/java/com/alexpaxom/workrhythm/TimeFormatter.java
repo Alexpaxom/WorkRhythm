@@ -11,6 +11,8 @@ public class TimeFormatter {
         DateFormat df = new SimpleDateFormat(" HH:mm:ss");
         df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
         Integer elapsed_days = (int) (elapsedTime / convertMillisecondsToDays);
-        return "Days: "+elapsed_days.toString() + " Hours:" +df.format(elapsedTime%convertMillisecondsToDays);
+        return App.getInstance().getString(R.string.time_format_days) + " " + elapsed_days.toString()
+                + " " +
+                App.getInstance().getString(R.string.time_format_hours) + " " + df.format(elapsedTime%convertMillisecondsToDays);
     }
 }

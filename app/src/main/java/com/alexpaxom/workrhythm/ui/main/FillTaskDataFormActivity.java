@@ -31,8 +31,7 @@ public class FillTaskDataFormActivity extends AppCompatActivity {
     private ImageButton deleteTaskButton;
     private SeekBar seekBarPriority;
 
-    private TextView formatElapsedTime;
-    private TextView numElapsedTime;
+    private EditText formatElapsedTime;
     private Button increaseElapsedTimeButton;
     private Button decreaseElapsedTimeButton;
 
@@ -69,7 +68,7 @@ public class FillTaskDataFormActivity extends AppCompatActivity {
         seekBarPriority = (SeekBar) findViewById(R.id.seek_bar_task_priority);
 
         // fields and buttons for "elapsed time"
-        formatElapsedTime = (TextView) findViewById(R.id.elapsed_format_time);
+        formatElapsedTime = (EditText) findViewById(R.id.elapsed_format_time);
         increaseElapsedTimeButton = (Button) findViewById(R.id.button_increase_elapsed_time);
         decreaseElapsedTimeButton = (Button) findViewById(R.id.button_decrease_elapsed_time);
     }

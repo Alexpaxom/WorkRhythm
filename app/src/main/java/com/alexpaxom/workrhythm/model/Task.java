@@ -6,6 +6,8 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 
+import com.alexpaxom.workrhythm.App;
+import com.alexpaxom.workrhythm.R;
 
 import java.util.GregorianCalendar;
 
@@ -42,7 +44,7 @@ public class Task {
 
     @Ignore
     public Task() {
-            this(null, "Untitled", "", 50, 1, GregorianCalendar.getInstance().getTimeInMillis(), (long) 0);
+            this(null, "", "", 50, 1, GregorianCalendar.getInstance().getTimeInMillis(), (long) 0);
     }
 
 
