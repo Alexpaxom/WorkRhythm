@@ -1,10 +1,14 @@
 <resources>
+    //activity main
     <string name="app_name">Work Rhythm</string>
     <string name="tab_tasks">In queue ⌛</string>
     <string name="tab_in_work">In work ⌚</string>
     <string name="tab_finished">Finished ✔</string>
     <string name="time_format_days">Days:</string>
     <string name="time_format_hours">Hours:</string>
-    <string name="placeholder_set_title">Set title</string>
+    //activity fill task data
+    <string name="placeholder_set_title">Title</string>
+    <string name="placeholder_set_description">Description</string>
+    <string name="button_save">Save</string>
 
 </resources>

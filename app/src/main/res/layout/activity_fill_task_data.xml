@@ -5,8 +5,7 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/white"
-    android:padding="16dp">
+    android:backgroundTint="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -33,38 +32,57 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:onClick="onClickDeleteTask"
+            android:tint="#ED7B7B"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_delete" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <EditText
-        android:id="@+id/edit_text_task_title"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_text_task_title_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="text"
-        android:text="@string/placeholder_set_title"
+        android:hint="@string/placeholder_set_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-    <EditText
-        android:id="@+id/edit_text_task_desctiption"
-        android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_task_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_text_task_description_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="10dp"
         android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:text="Set description"
+        android:hint="@string/placeholder_set_description"
         app:layout_constraintBottom_toTopOf="@+id/layout_elapsed_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_task_title" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_task_title_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_task_description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <LinearLayout
         android:id="@+id/priority_layout"
@@ -116,7 +134,7 @@
         android:layout_height="66dp"
         android:layout_marginBottom="10dp"
         android:onClick="onClickSaveTask"
-        android:text="SAVE"
+        android:text="@string/button_save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -131,24 +149,47 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <EditText
-            android:id="@+id/elapsed_format_time"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_text_elapsed_days_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:enabled="false"
-            android:inputType="textPersonName"
-            android:text="Name"
+            android:hint="Дней"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_elapsed_days"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:ems="10" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_text_elapsed_hours_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Часов"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button_decrease_elapsed_time"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/edit_text_elapsed_days_layout"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_elapsed_hours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/button_decrease_elapsed_time"
             android:layout_width="30dp"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
             android:onClick="onClickDecreaseElapsedTime"
             android:paddingLeft="4dp"
@@ -164,7 +205,7 @@
         <Button
             android:id="@+id/button_increase_elapsed_time"
             android:layout_width="30dp"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:onClick="onClickIncreaseElapsedTime"
             android:paddingLeft="4dp"
             android:paddingTop="2dp"

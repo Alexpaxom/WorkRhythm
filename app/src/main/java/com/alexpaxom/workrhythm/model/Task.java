@@ -41,10 +41,13 @@ public class Task {
 
     public final static Integer ARCHIVED = 4;
 
-
     @Ignore
     public Task() {
-            this(null, "", "", 50, 1, GregorianCalendar.getInstance().getTimeInMillis(), (long) 0);
+            this(null,
+                    "",
+                    "",
+                    50, 1,
+                    GregorianCalendar.getInstance().getTimeInMillis(), (long) 0);
     }
 
 

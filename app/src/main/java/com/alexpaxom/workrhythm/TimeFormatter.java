@@ -15,4 +15,16 @@ public class TimeFormatter {
                 + " " +
                 App.getInstance().getString(R.string.time_format_hours) + " " + df.format(elapsedTime%convertMillisecondsToDays);
     }
+
+    public static String intervalGetDays(Long elapsedTime) {
+        Integer elapsed_days = (int) (elapsedTime / convertMillisecondsToDays);
+        return elapsed_days.toString();
+    }
+
+    public static String intervalGetHours(Long elapsedTime) {
+        DateFormat df = new SimpleDateFormat(" HH:mm:ss");
+        df.setTimeZone(TimeZone.getTimeZone("GMT+0"));
+
+        return df.format(elapsedTime%convertMillisecondsToDays);
+    }
 }

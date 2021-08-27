@@ -16,6 +16,7 @@ import com.alexpaxom.workrhythm.R;
 import com.alexpaxom.workrhythm.TimeFormatter;
 import com.alexpaxom.workrhythm.model.Task;
 import com.alexpaxom.workrhythm.viewmodel.TaskStorageViewModel;
+import com.google.android.material.textfield.TextInputEditText;
 
 import androidx.core.util.Consumer;
 
@@ -23,15 +24,15 @@ import java.util.GregorianCalendar;
 
 public class FillTaskDataFormActivity extends AppCompatActivity {
     private TaskStorageViewModel viewModel;
-    private EditText title;
-    private EditText descr;
+    private TextInputEditText title;
+    private TextInputEditText description;
     private TextView priority;
     private Intent intentData;
     private Task fillingTask;
     private ImageButton deleteTaskButton;
     private SeekBar seekBarPriority;
 
-    private EditText formatElapsedTime;
+    private TextInputEditText formatElapsedTime;
     private Button increaseElapsedTimeButton;
     private Button decreaseElapsedTimeButton;
 
@@ -61,14 +62,14 @@ public class FillTaskDataFormActivity extends AppCompatActivity {
     }
 
     protected void getFieldsFromForm() {
-        title = (EditText) findViewById(R.id.edit_text_task_title);
-        descr = (EditText) findViewById(R.id.edit_text_task_desctiption);
+        title = (TextInputEditText) findViewById(R.id.edit_text_task_title);
+        description = (TextInputEditText) findViewById(R.id.edit_text_task_description);
         priority = (TextView)findViewById(R.id.text_view_priority);
         deleteTaskButton = (ImageButton)findViewById(R.id.delete_task);
         seekBarPriority = (SeekBar) findViewById(R.id.seek_bar_task_priority);
 
         // fields and buttons for "elapsed time"
-        formatElapsedTime = (EditText) findViewById(R.id.elapsed_format_time);
+        formatElapsedTime = (TextInputEditText) findViewById(R.id.edit_text_elapsed_hours);
         increaseElapsedTimeButton = (Button) findViewById(R.id.button_increase_elapsed_time);
         decreaseElapsedTimeButton = (Button) findViewById(R.id.button_decrease_elapsed_time);
     }
@@ -79,12 +80,12 @@ public class FillTaskDataFormActivity extends AppCompatActivity {
 
     public void setFillTask(Task task) {
         fillingTask = task;
-        fillFormTask();
+        runOnUiThread(() -> fillFormTask());
     }
 
     protected void fillFormTask() {
         title.setText(fillingTask.getTitle());
-        descr.setText(fillingTask.getDescription());
+        description.setText(fillingTask.getDescription());
         priority.setText(fillingTask.getPriority().toString());
         seekBarPriority.setProgress(fillingTask.getPriority());
 
@@ -102,7 +103,7 @@ public class FillTaskDataFormActivity extends AppCompatActivity {
 
     public void onClickSaveTask(View view) {
         fillingTask.setTitle(title.getText().toString());
-        fillingTask.setDescription(descr.getText().toString());
+        fillingTask.setDescription(description.getText().toString());
         fillingTask.setPriority(Integer.parseInt(priority.getText().toString()));
 
         viewModel.SaveTask(fillingTask);

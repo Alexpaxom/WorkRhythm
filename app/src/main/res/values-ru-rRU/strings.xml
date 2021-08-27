@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    //activity main
     <string name="app_name">Work Rhythm</string>
     <string name="tab_tasks">В очереди ⌛</string>
     <string name="tab_in_work">В работе ⌚</string>
     <string name="tab_finished">Готовые ✔✔</string>
     <string name="time_format_days">Дней:</string>
     <string name="time_format_hours">Часов:</string>
-    <string name="placeholder_set_title">Введите заголовок</string>
+    //activity fill task data
+    <string name="placeholder_set_title">Заголовок</string>
+    <string name="placeholder_set_description">Описание</string>
+    <string name="button_save">Сохранить</string>
 </resources>

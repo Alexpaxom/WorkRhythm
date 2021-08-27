@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.room.Room;
 
 import com.alexpaxom.workrhythm.data.AppSQLiteDatabase;
@@ -26,8 +27,9 @@ public class App extends Application {
         super.onCreate();
 
         instance = this;
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        Intent service = new Intent(this, ForegroundHolderService.class);
+        /*Intent service = new Intent(this, ForegroundHolderService.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             this.startForegroundService(service);
         }
@@ -41,7 +43,7 @@ public class App extends Application {
         }
         else {
             Log.i("INFO", "Reminder is set");
-        }
+        }*/
 
         db = Room.databaseBuilder(getApplicationContext(),
                 AppSQLiteDatabase.class, "DB_App_Work_Rhythm")
