@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".App"
+        android:name=".app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,16 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WorkRhythm">
         <service
-            android:name=".remindernotification.ForegroundHolderService"
+            android:name=".app.remindernotification.ForegroundHolderService"
             android:exported="false"/>
 
         <receiver
-            android:name=".remindernotification.ReminderNotificationReceiver"
+            android:name=".app.remindernotification.ReminderNotificationReceiver"
             android:enabled="true"
             android:exported="true" />
 
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".app.activites.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.WorkRhythm.NoActionBar">
             <intent-filter>
@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.main.FillTaskDataFormActivity"
+            android:name=".app.activites.FillTaskDataFormActivity"
             android:label="Add task"
             android:theme="@style/Theme.WorkRhythm.NoActionBar" />
     </application>
