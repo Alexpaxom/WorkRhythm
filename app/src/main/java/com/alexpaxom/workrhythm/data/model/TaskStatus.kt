@@ -2,11 +2,13 @@ package com.alexpaxom.workrhythm.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "Task_Statuses")
 class TaskStatus(
-    @ColumnInfo(name = "id", defaultValue = "1")
-    var id: Long = 0,
+    // TODO replase Int to Long
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0,
 
     @ColumnInfo(name = "name", defaultValue = "not named")
     var name: String = "not named"

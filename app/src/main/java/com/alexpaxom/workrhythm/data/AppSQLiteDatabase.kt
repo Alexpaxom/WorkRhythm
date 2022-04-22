@@ -10,17 +10,20 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.alexpaxom.workrhythm.data.model.Task
 import com.alexpaxom.workrhythm.data.model.TaskDao
+import com.alexpaxom.workrhythm.data.model.TaskStatus
 import java.util.concurrent.Executors
 
-@Database(entities = [Task::class], version = 1, exportSchema = true)
+@Database(entities = [Task::class, TaskStatus::class], version = 2, exportSchema = true)
 abstract class AppSQLiteDatabase : RoomDatabase() {
     abstract fun taskDao(): TaskDao
 
     private fun buildDatabase(context: Context): AppSQLiteDatabase {
         return Room.databaseBuilder(context, AppSQLiteDatabase::class.java, DATABASE_NAME)
+            .addMigrations(MIGRATION_1_2)
             .addCallback(object : RoomDatabase.Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
+
                     //pre-populate data
                     Executors.newSingleThreadExecutor().execute {
                         /*instance?.let {
@@ -40,10 +43,10 @@ abstract class AppSQLiteDatabase : RoomDatabase() {
 val MIGRATION_1_2 = object: Migration(1,2) {
     override fun migrate(database: SupportSQLiteDatabase) {
         // add new table `Task_Statuses`
-        database.execSQL("CREATE TABLE  IF NOT EXISTS `Task_Statuses`(" +
-                "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                "`name` TEXT NOT NULL" +
-                ")")
+        database.execSQL("""CREATE TABLE  IF NOT EXISTS `Task_Statuses`(
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `name` TEXT NOT NULL
+                )""".trimIndent())
 
         // insert default values on table `Task_Statuses`
         defaultValuesForStatusTable().forEach {
@@ -51,10 +54,10 @@ val MIGRATION_1_2 = object: Migration(1,2) {
         }
 
         // add new table `Task_Types`
-        database.execSQL("CREATE TABLE  IF NOT EXISTS `Task_Types`(" +
-                "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                "`name` TEXT NOT NULL" +
-                ")")
+        database.execSQL("""CREATE TABLE  IF NOT EXISTS `Task_Types`(
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `name` TEXT NOT NULL
+                )""".trimIndent())
 
         // insert default values on table `Task_Types`
         defaultValuesForTypesTable().forEach {
@@ -64,40 +67,40 @@ val MIGRATION_1_2 = object: Migration(1,2) {
         // Recreate table for add new foreign keys - sqlite specific
         // add two fields `estimate` and `type_id`
         // add foreign keys on `status_id` and `type_id`
-        database.execSQL("CREATE TABLE  IF NOT EXISTS `Tasks_tmp`(" +
-                "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                "`type_id` INTEGER NOT NULL DEFAULT 2," +
-                "`title` TEXT NOT NULL DEFAULT 'Без заголовка', " +
-                "`description` TEXT NOT NULL DEFAULT 'Без заголовка', " +
-                "`priority` INTEGER NOT NULL DEFAULT 0, " +
-                "`status_id` INTEGER NOT NULL DEFAULT 1, " +
-                "`last_update_status` INTEGER NOT NULL DEFAULT 0, " +
-                "`elapsed_time` INTEGER NOT NULL DEFAULT 0," +
-                "`estimate` INTEGER NOT NULL DEFAULT 0," +
-                "FOREIGN KEY(`status_id`) REFERENCES `Task_Statuses`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE, " +
-                "FOREIGN KEY(`type_id`) REFERENCES `Task_Types`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE" +
-                ")")
+        database.execSQL("""CREATE TABLE  IF NOT EXISTS `Tasks_tmp`(
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `type_id` INTEGER NOT NULL DEFAULT 2,
+                `title` TEXT NOT NULL DEFAULT 'Без заголовка',
+                `description` TEXT NOT NULL DEFAULT 'Без заголовка',
+                `priority` INTEGER NOT NULL DEFAULT 0,
+                `status_id` INTEGER NOT NULL DEFAULT 1,
+                `last_update_status` INTEGER NOT NULL DEFAULT 0,
+                `elapsed_time` INTEGER NOT NULL DEFAULT 0,
+                `estimate` INTEGER NOT NULL DEFAULT 0,
+                FOREIGN KEY(`status_id`) REFERENCES `Task_Statuses`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE,
+                FOREIGN KEY(`type_id`) REFERENCES `Task_Types`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+                )""".trimIndent())
 
-        database.execSQL("INSERT INTO `Tasks_tmp`(" +
-                "`id`, `title`, `description`, `priority`, `status_id`, `status_id`, `last_update_status`, `elapsed_time`) " +
-                "SELECT " +
-                "`id`, `title`, `description`, `priority`, `status_id`, `status_id`, `last_update_status`, `elapsed_time` " +
-                "FROM `Tasks`")
+        database.execSQL("""INSERT INTO `Tasks_tmp`(
+                `id`, `title`, `description`, `priority`, `status_id`, `status_id`, `last_update_status`, `elapsed_time`)
+                SELECT
+                `id`, `title`, `description`, `priority`, `status_id`, `status_id`, `last_update_status`, `elapsed_time`
+                FROM `Tasks`""".trimIndent())
 
 
         // add new table `Tasks_Hierarchy`
-        database.execSQL("CREATE TABLE  IF NOT EXISTS `Tasks_Hierarchy`(" +
-                "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                "`task_id` INTEGER NOT NULL, " +
-                "`parent_task_id` INTEGER," +
-                "`task_path` TEXT NOT NULL" +
-                ")")
+        database.execSQL("""CREATE TABLE  IF NOT EXISTS `Tasks_Hierarchy`(
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `task_id` INTEGER NOT NULL,
+                `parent_task_id` INTEGER,
+                `task_path` TEXT NOT NULL
+                )""".trimIndent())
 
-        database.execSQL("INSERT INTO `Tasks_Hierarchy`(" +
-                "task_id, task_path) " +
-                "SELECT " +
-                "`id`, '-' || id || '-' as task_path " +
-                "FROM `Tasks`")
+        database.execSQL("""INSERT INTO `Tasks_Hierarchy`(
+                task_id, task_path)
+                SELECT
+                `id`, '-' || id || '-' as task_path
+                FROM `Tasks`""".trimIndent())
 
         //drop old table and rename new
         database.execSQL("DROP TABLE `Tasks`")

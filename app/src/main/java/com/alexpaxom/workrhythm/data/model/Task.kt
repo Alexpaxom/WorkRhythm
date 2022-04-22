@@ -1,12 +1,17 @@
 package com.alexpaxom.workrhythm.data.model
 
-import androidx.room.PrimaryKey
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Ignore
+import androidx.room.*
 import java.util.*
 
-@Entity(tableName = Task.TABLE_NAME)
+@Entity(tableName = Task.TABLE_NAME,
+    foreignKeys = [
+        ForeignKey(
+            entity = TaskStatus::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("status_id"),
+            onDelete = ForeignKey.CASCADE)
+    ]
+    )
 class Task(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,
@@ -20,7 +25,7 @@ class Task(
     @ColumnInfo(name = "priority", defaultValue = "0")
     var priority: Int = 0,
 
-    @ColumnInfo(name = "status_id", defaultValue = "1")
+    @ColumnInfo(name = "status_id", defaultValue = "1", index = true)
     var statusId: Int = 1,
 
     @ColumnInfo(name = "last_update_status", defaultValue = "0")
